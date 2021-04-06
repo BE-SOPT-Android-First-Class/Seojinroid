@@ -1,9 +1,11 @@
 package org.sopt.soptseminar_week1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
 
 class SignInActivity : AppCompatActivity() {
@@ -62,7 +64,13 @@ class SignInActivity : AppCompatActivity() {
                     "환영합니다",
                     Toast.LENGTH_SHORT
                 ).show()
+                val intent = Intent(this@SignInActivity, HomeActivity::class.java)
+                startActivity(intent)
             }
+        }
+        binding.signupButton.setOnClickListener{
+            val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 }
