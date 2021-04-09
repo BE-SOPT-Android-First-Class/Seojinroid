@@ -5,11 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.databinding.ActivitySignUpBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
+    private var loginActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+    ) {
+        Log.d("로그", "Came from LogIn Activity")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -64,7 +71,7 @@ class SignUpActivity : AppCompatActivity() {
                 bundle.putString("userId", userId)
                 bundle.putString("userPw", userPw)
                 intent.putExtras(bundle)
-                startActivity(intent)
+                loginActivityLauncher.launch(intent)
             }
         }
     }

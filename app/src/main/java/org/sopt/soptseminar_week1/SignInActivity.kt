@@ -11,7 +11,17 @@ import org.sopt.soptseminar_week1.utils.activityLogger
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val logTag = "로그"
+    private var signUpActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+    ) {
+        Log.d("로그", "Came from SignUp Activity")
+    }
+    private var homeActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+    ) {
+        Log.d("로그", "Came from Home Activity")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -66,12 +76,12 @@ class SignInActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                 ).show()
                 val intent = Intent(this@SignInActivity, HomeActivity::class.java)
-                startActivity(intent)
+                homeActivityLauncher.launch(intent)
             }
         }
         binding.signupButton.setOnClickListener {
             val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
-            startActivity(intent)
+            signUpActivityLauncher.launch(intent)
         }
     }
 }
