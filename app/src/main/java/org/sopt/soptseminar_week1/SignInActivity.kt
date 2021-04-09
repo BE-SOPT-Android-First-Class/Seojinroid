@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
+import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -59,11 +60,9 @@ class SignInActivity : AppCompatActivity() {
         activityLogger(this.localClassName, "onRestart")
     }
 
-    private fun isLoginEditTextEmpty() = binding.editTextId.text.isNullOrBlank() || binding.editTextPw.text.isNullOrBlank()
-
     private fun initButtonClickEvent() {
         binding.loginButton.setOnClickListener {
-            if (isLoginEditTextEmpty()) {
+            if (!isAllEditTextFilled(listOf(binding.editTextId.text, binding.editTextPw.text))) {
                 Toast.makeText(
                         this@SignInActivity,
                         "아이디/비밀번호를 확인해주세요!",

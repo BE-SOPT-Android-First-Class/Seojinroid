@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.databinding.ActivitySignUpBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
+import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -54,22 +55,20 @@ class SignUpActivity : AppCompatActivity() {
         activityLogger(this.localClassName, "onRestart")
     }
 
-    private fun isSignUpEditTextEmpty() = binding.editTextId.text.isNullOrBlank() || binding.editTextName.text.isNullOrBlank() || binding.editTextPw.text.isNullOrBlank()
-
     private fun initButtonClickEvent() {
         binding.signupButton.setOnClickListener {
-            val userName = binding.editTextName.text.toString()
-            val userId = binding.editTextId.text.toString()
-            val userPw = binding.editTextPw.text.toString()
-            if (isSignUpEditTextEmpty()) {
+            val userName = binding.editTextName.text
+            val userId = binding.editTextId.text
+            val userPw = binding.editTextPw.text
+            if (!isAllEditTextFilled(listOf(userName, userId, userPw))) {
                 Toast.makeText(this@SignUpActivity, "빈 칸이 있는지 확인해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this@SignUpActivity, "회원가입을 축하합니다!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
                 val bundle = Bundle()
-                bundle.putString("username", userName)
-                bundle.putString("userId", userId)
-                bundle.putString("userPw", userPw)
+                bundle.putString("username", userName.toString())
+                bundle.putString("userId", userId.toString())
+                bundle.putString("userPw", userPw.toString())
                 intent.putExtras(bundle)
                 loginActivityLauncher.launch(intent)
             }
