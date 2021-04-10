@@ -7,10 +7,22 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
+import org.sopt.soptseminar_week1.utils.activityLogger
+import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
 
 class SignInActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-    private val logTag = "로그"
+    private lateinit var binding: ActivityMainBinding
+    private var signUpActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+    ) {
+        Log.d("로그", "Came from SignUp Activity")
+    }
+    private var homeActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+    ) {
+        Log.d("로그", "Came from Home Activity")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -20,57 +32,55 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(logTag, "Sign In Activity - onStart Called")
+        activityLogger(this.localClassName, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(logTag, "Sign In Activity - onResume Called")
+        activityLogger(this.localClassName, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(logTag, "Sign In Activity - onPause Called")
+        activityLogger(this.localClassName, "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(logTag, "Sign In Activity - onStop Called")
+        activityLogger(this.localClassName, "onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(logTag, "Sign In Activity - onDestroy Called")
+        activityLogger(this.localClassName, "onDestroy")
     }
 
     override fun onRestart() {
         super.onRestart()
-        Log.d(logTag, "Sign In Activity - onRestart Called")
+        activityLogger(this.localClassName, "onRestart")
     }
 
     private fun initButtonClickEvent() {
-        binding.loginButton.setOnClickListener{
-            val userId = binding.idEt.text
-            val userPw = binding.pwEt.text
-            if(userId.isNullOrBlank() || userPw.isNullOrBlank()) {
+        binding.loginButton.setOnClickListener {
+            if (!isAllEditTextFilled(listOf(binding.editTextId.text, binding.editTextPw.text))) {
                 Toast.makeText(
-                    this@SignInActivity,
-                    "아이디/비밀번호를 확인해주세요!",
-                    Toast.LENGTH_SHORT
+                        this@SignInActivity,
+                        "아이디/비밀번호를 확인해주세요!",
+                        Toast.LENGTH_SHORT
                 ).show()
             } else {
                 Toast.makeText(
-                    this@SignInActivity,
-                    "환영합니다",
-                    Toast.LENGTH_SHORT
+                        this@SignInActivity,
+                        "환영합니다",
+                        Toast.LENGTH_SHORT
                 ).show()
                 val intent = Intent(this@SignInActivity, HomeActivity::class.java)
-                startActivity(intent)
+                homeActivityLauncher.launch(intent)
             }
         }
-        binding.signupButton.setOnClickListener{
+        binding.signupButton.setOnClickListener {
             val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
-            startActivity(intent)
+            signUpActivityLauncher.launch(intent)
         }
     }
 }

@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import org.sopt.soptseminar_week1.databinding.ActivityHomeBinding
+import org.sopt.soptseminar_week1.utils.activityLogger
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private val logTag = "로그"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -16,31 +16,31 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(logTag, "Home Activity - onStart Called")
+        activityLogger(this.localClassName, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(logTag, "Home Activity - onResume Called")
+        activityLogger(this.localClassName, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(logTag, "Home Activity - onPause Called")
+        activityLogger(this.localClassName, "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(logTag, "Home Activity - onStop Called")
+        activityLogger(this.localClassName, "onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(logTag, "Home Activity - onDestroy Called")
+        activityLogger(this.localClassName, "onDestroy")
     }
 
     override fun onRestart() {
         super.onRestart()
-        Log.d(logTag, "Home Activity - onRestart Called")
+        activityLogger(this.localClassName, "onRestart")
     }
 }
