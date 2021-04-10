@@ -11,6 +11,7 @@
         android:theme="@style/Theme.SoptSeminar_week1">
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".UserInfoActivity"/>
         <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
