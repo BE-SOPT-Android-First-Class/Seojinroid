@@ -5,11 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.databinding.ActivitySignUpBinding
+import org.sopt.soptseminar_week1.utils.activityLogger
+import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
-    private val logTag = "로그"
+    private var loginActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+    ) {
+        Log.d("로그", "Came from LogIn Activity")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -19,49 +27,50 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(logTag, "Sign Up Activity - onStart Called")
+        activityLogger(this.localClassName, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(logTag, "Sign Up Activity - onResume Called")
+        activityLogger(this.localClassName, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(logTag, "Sign Up Activity - onPause Called")
+        activityLogger(this.localClassName, "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(logTag, "Sign Up Activity - onStop Called")
+        activityLogger(this.localClassName, "onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(logTag, "Sign Up Activity - onDestroy Called")
+        activityLogger(this.localClassName, "onDestroy")
     }
 
     override fun onRestart() {
         super.onRestart()
-        Log.d(logTag, "Sign Up Activity - onRestart Called")
+        activityLogger(this.localClassName, "onRestart")
     }
 
     private fun initButtonClickEvent() {
-        binding.signupButton.setOnClickListener{
-            val userName = binding.nmEt.text
-            val userId = binding.idEt.text
-            val userPw = binding.pwEt.text
-            if(userName.isNullOrBlank() || userId.isNullOrBlank() || userPw.isNullOrBlank()) {
+        binding.signupButton.setOnClickListener {
+            val userName = binding.editTextName.text
+            val userId = binding.editTextId.text
+            val userPw = binding.editTextPw.text
+            if (!isAllEditTextFilled(listOf(userName, userId, userPw))) {
                 Toast.makeText(this@SignUpActivity, "빈 칸이 있는지 확인해주세요", Toast.LENGTH_SHORT).show()
             } else {
+                Toast.makeText(this@SignUpActivity, "회원가입을 축하합니다!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
-                var bundle = Bundle();
+                val bundle = Bundle()
                 bundle.putString("username", userName.toString())
                 bundle.putString("userId", userId.toString())
                 bundle.putString("userPw", userPw.toString())
                 intent.putExtras(bundle)
-                startActivity(intent)
+                loginActivityLauncher.launch(intent)
             }
         }
     }
