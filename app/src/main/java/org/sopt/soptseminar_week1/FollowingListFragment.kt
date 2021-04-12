@@ -1,6 +1,7 @@
 package org.sopt.soptseminar_week1
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,10 +28,10 @@ class FollowingListFragment : Fragment() {
         binding.recyclerviewFollowingList.adapter = followingListAdapter
         followingListAdapter.userList.addAll(
             listOf(
-                FollowingListUserInfo(userImageSrc = "나중에", userName = "Seojinroid"),
-                FollowingListUserInfo(userImageSrc = "나중에", userName = "HyunWooRoid"),
-                FollowingListUserInfo(userImageSrc = "나중에", userName = "Jiyeonroid"),
-                FollowingListUserInfo(userImageSrc = "나중에", userName = "WonJoongRoid")
+                FollowingListUserInfo(userName = "Seojinroid"),
+                FollowingListUserInfo(userName = "HyunWooRoid"),
+                FollowingListUserInfo(userName = "Jiyeonroid"),
+                FollowingListUserInfo(userName = "WonJoongRoid")
             )
         )
         followingListAdapter.notifyDataSetChanged()
