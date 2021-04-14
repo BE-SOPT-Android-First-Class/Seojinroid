@@ -18,4 +18,6 @@
     <string name="pw_txt">비밀번호</string>
     <string name="pw_hint">비밀번호를 입력해주세요</string>
     <string name="btn_signup">Sign Up</string>
+    <string name="btn_go_following_list">MORE</string>
+    <string name="desc_following_list_profile">following list profile</string>
 </resources>
