@@ -7,7 +7,11 @@ import org.sopt.soptseminar_week1.databinding.ItemFollowingListBinding
 
 class FollowingListAdapter : RecyclerView.Adapter<FollowingListAdapter.FollowingUserViewHolder>() {
 
-    val userList = mutableListOf<FollowingListUserInfo>()
+    private val userList = mutableListOf<FollowingListUserInfo>()
+
+    fun setUserList(newList : List<FollowingListUserInfo>) {
+        userList.addAll(newList)
+    }
 
     class FollowingUserViewHolder(private val binding: ItemFollowingListBinding) :
         RecyclerView.ViewHolder(binding.root) {
