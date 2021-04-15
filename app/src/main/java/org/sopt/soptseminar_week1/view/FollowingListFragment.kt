@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.sopt.soptseminar_week1.FollowingListUserInfo
+import org.sopt.soptseminar_week1.data.FollowingListUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 
@@ -17,10 +17,10 @@ class FollowingListFragment : Fragment() {
         val followingListAdapter = FollowingListAdapter()
         binding.recyclerviewFollowingList.adapter = followingListAdapter
         followingListAdapter.setUserList(listOf(
-            FollowingListUserInfo(userName = "Seojinroid"),
-            FollowingListUserInfo(userName = "HyunWooRoid"),
-            FollowingListUserInfo(userName = "Jiyeonroid"),
-            FollowingListUserInfo(userName = "WonJoongRoid")
+            FollowingListUserInfo(userName = "SeojinSeojin"),
+            FollowingListUserInfo(userName = "l2hyunwoo"),
+            FollowingListUserInfo(userName = "WonJoongLee"),
+            FollowingListUserInfo(userName = "todayiswindy")
         ))
         followingListAdapter.notifyDataSetChanged()
     }
