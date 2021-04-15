@@ -1,7 +1,8 @@
-package org.sopt.soptseminar_week1
+package org.sopt.soptseminar_week1.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import org.sopt.soptseminar_week1.R
 import org.sopt.soptseminar_week1.databinding.ActivityUserInfoBinding
 
 class UserInfoActivity : AppCompatActivity() {
