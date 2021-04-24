@@ -3,16 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:background="@drawable/item_border_bottom_grey"
+    android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/img_following_list_profile"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/desc_following_list_profile"
-        app:layout_constraintDimensionRatio="W,1:1"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_following_list_profile"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_following_list_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/desc_following_list_profile"
+            app:layout_constraintDimensionRatio="W,1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/text_following_list_profile"
@@ -23,7 +34,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_following_list_profile"
+        app:layout_constraintStart_toEndOf="@+id/cv_following_list_profile"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
