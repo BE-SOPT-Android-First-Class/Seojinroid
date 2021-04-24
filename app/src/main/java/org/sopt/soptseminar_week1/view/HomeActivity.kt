@@ -1,10 +1,11 @@
-package org.sopt.soptseminar_week1
+package org.sopt.soptseminar_week1.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import org.sopt.soptseminar_week1.data.RepositoryListInfo
 import org.sopt.soptseminar_week1.databinding.ActivityHomeBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 
@@ -17,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
         Log.d("로그", "Came from userInfo Activity")
     }
 
-    private fun initButton() {
+    private fun initLaunchUserInfoActivityButton() {
         binding.btnFollowingList.setOnClickListener {
             val intent = Intent(this@HomeActivity, UserInfoActivity::class.java)
             userInfoActivityLauncher.launch(intent)
@@ -27,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         val repositoryListAdapter = RepositoryListAdapter()
         binding.recyclerviewRepositoryList.adapter = repositoryListAdapter
-        repositoryListAdapter.repositoryList.addAll(
+        repositoryListAdapter.setRepositoryList(
             listOf(
                 RepositoryListInfo("레포이름", "레포설명", "레포언어"),
                 RepositoryListInfo("레포이름", "레포설명", "레포언어"),
@@ -47,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initButton()
+        initLaunchUserInfoActivityButton()
         initRecyclerView()
     }
 

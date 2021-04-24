@@ -1,17 +1,30 @@
-package org.sopt.soptseminar_week1
+package org.sopt.soptseminar_week1.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.sopt.soptseminar_week1.data.FollowingListUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 
 class FollowingListFragment : Fragment() {
 
     lateinit var binding: FragmentFollowingListBinding
+
+    private fun initRecyclerView() {
+        val followingListAdapter = FollowingListAdapter()
+        binding.recyclerviewFollowingList.adapter = followingListAdapter
+        followingListAdapter.setUserList(listOf(
+            FollowingListUserInfo(userName = "SeojinSeojin"),
+            FollowingListUserInfo(userName = "l2hyunwoo"),
+            FollowingListUserInfo(userName = "WonJoongLee"),
+            FollowingListUserInfo(userName = "todayiswindy")
+        ))
+        followingListAdapter.notifyDataSetChanged()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,17 +37,7 @@ class FollowingListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activityLogger(this.javaClass.name, "onViewCreated")
-        val followingListAdapter = FollowingListAdapter()
-        binding.recyclerviewFollowingList.adapter = followingListAdapter
-        followingListAdapter.userList.addAll(
-            listOf(
-                FollowingListUserInfo(userName = "Seojinroid"),
-                FollowingListUserInfo(userName = "HyunWooRoid"),
-                FollowingListUserInfo(userName = "Jiyeonroid"),
-                FollowingListUserInfo(userName = "WonJoongRoid")
-            )
-        )
-        followingListAdapter.notifyDataSetChanged()
+        initRecyclerView()
     }
 
     override fun onPause() {

@@ -1,4 +1,4 @@
-package org.sopt.soptseminar_week1
+package org.sopt.soptseminar_week1.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

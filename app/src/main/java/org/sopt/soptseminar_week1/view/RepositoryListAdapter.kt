@@ -1,20 +1,27 @@
-package org.sopt.soptseminar_week1
+package org.sopt.soptseminar_week1.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.sopt.soptseminar_week1.data.RepositoryListInfo
 import org.sopt.soptseminar_week1.databinding.ItemRepositoryListBinding
 
 class RepositoryListAdapter :
     RecyclerView.Adapter<RepositoryListAdapter.RepositoryListViewHolder>() {
-    val repositoryList = mutableListOf<RepositoryListInfo>()
+    private val repositoryList = mutableListOf<RepositoryListInfo>()
+
+    fun setRepositoryList(newList:List<RepositoryListInfo>) {
+        repositoryList.addAll(newList)
+    }
 
     class RepositoryListViewHolder(private val binding: ItemRepositoryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(repositoryListInfo: RepositoryListInfo) {
-            binding.textName.text = repositoryListInfo.repositoryName
-            binding.textDesc.text = repositoryListInfo.repositoryDesc
-            binding.textLang.text = repositoryListInfo.repositoryLang
+            binding.apply {
+                textName.text = repositoryListInfo.repositoryName
+                textDesc.text = repositoryListInfo.repositoryDesc
+                textLang.text = repositoryListInfo.repositoryLang
+            }
         }
     }
 

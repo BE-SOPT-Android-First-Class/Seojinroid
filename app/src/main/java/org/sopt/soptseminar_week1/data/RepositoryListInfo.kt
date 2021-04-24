@@ -1,4 +1,4 @@
-package org.sopt.soptseminar_week1
+package org.sopt.soptseminar_week1.data
 
 data class RepositoryListInfo(
     val repositoryName: String,
