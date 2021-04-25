@@ -57,12 +57,14 @@ loginActivityLauncher.launch(intent)
 * 액티비티와 다른 생명 주기를 가짐
 <img src="https://developer.android.com/images/guide/fragments/fragment-view-lifecycle.png">
 * 액티비티에서 프라그먼트를 가져오는 코드
+
 ```kotlin
 val followingListFragment = FollowingListFragment()
 val transaction = supportFragmentManager.beginTransaction()
 transaction.add(R.id.fragment_user_info, followingListFragment)
 transaction.commit()
 ```
+
 ### 2. RecyclerView
 요소 | 역할
 |:--|:--|
