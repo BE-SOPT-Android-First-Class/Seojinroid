@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.soptseminar_week1.data.FollowingListUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
@@ -15,7 +17,11 @@ class FollowingListFragment : Fragment() {
 
     private fun initRecyclerView() {
         val followingListAdapter = FollowingListAdapter()
-        binding.recyclerviewFollowingList.adapter = followingListAdapter
+        val gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false)
+        binding.apply{
+            recyclerviewFollowingList.adapter = followingListAdapter
+            recyclerviewFollowingList.layoutManager = gridLayoutManager
+        }
         followingListAdapter.setUserList(listOf(
             FollowingListUserInfo(userName = "SeojinSeojin"),
             FollowingListUserInfo(userName = "l2hyunwoo"),
