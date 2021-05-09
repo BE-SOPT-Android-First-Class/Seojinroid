@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
-import java.util.*
 
 
 interface UserService {
@@ -12,6 +11,7 @@ interface UserService {
     fun postSignUp(
         @Body body: RequestSignUp
     ): Call<ResponseSignUp>
+
     @POST("/login/signin")
     fun postSignIn(
         @Body body: RequestSignIn
@@ -41,7 +41,7 @@ data class RequestSignUp(
     @SerializedName("sex") val sex: Int,
     @SerializedName("nickname") val nickname: String,
     @SerializedName("phone") val phone: String,
-    @SerializedName("birth") val birth: Date
+    @SerializedName("birth") val birth: String
 )
 
 data class ResponseSignUp(
