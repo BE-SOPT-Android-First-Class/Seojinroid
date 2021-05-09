@@ -17,10 +17,8 @@ class FollowingListFragment : Fragment() {
 
     private fun initRecyclerView() {
         val followingListAdapter = FollowingListAdapter()
-        val gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false)
         binding.apply{
             recyclerviewFollowingList.adapter = followingListAdapter
-            recyclerviewFollowingList.layoutManager = gridLayoutManager
         }
         followingListAdapter.setUserList(listOf(
             FollowingListUserInfo(userName = "SeojinSeojin"),
