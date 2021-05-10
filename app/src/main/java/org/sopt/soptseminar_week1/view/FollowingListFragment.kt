@@ -1,32 +1,47 @@
 package org.sopt.soptseminar_week1.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.sopt.soptseminar_week1.data.FollowingListUserInfo
+import org.sopt.soptseminar_week1.api.GithubServiceCreator
+import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FollowingListFragment : Fragment() {
 
     lateinit var binding: FragmentFollowingListBinding
 
-    private fun initRecyclerView() {
-        val followingListAdapter = FollowingListAdapter()
-        binding.apply{
+    private fun initRecyclerView(followings: List<GithubUserInfo>) {
+        val followingListAdapter = FollowingListAdapter(followings)
+        binding.apply {
             recyclerviewFollowingList.adapter = followingListAdapter
         }
-        followingListAdapter.setUserList(listOf(
-            FollowingListUserInfo(userName = "SeojinSeojin"),
-            FollowingListUserInfo(userName = "l2hyunwoo"),
-            FollowingListUserInfo(userName = "WonJoongLee"),
-            FollowingListUserInfo(userName = "todayiswindy")
-        ))
-        followingListAdapter.notifyDataSetChanged()
+    }
+
+    private fun handleGetRequest() {
+        val call: Call<List<GithubUserInfo>> = GithubServiceCreator.githubService.getFollowerInfo()
+        call.enqueue(object : Callback<List<GithubUserInfo>> {
+            override fun onResponse(
+                call: Call<List<GithubUserInfo>>,
+                response: Response<List<GithubUserInfo>>
+            ) {
+                if (response.body() !== null) {
+                    initRecyclerView(response.body()!!)
+                }
+            }
+
+            override fun onFailure(call: Call<List<GithubUserInfo>>, t: Throwable) {
+                Log.d("로그", t.toString())
+            }
+
+        })
     }
 
     override fun onCreateView(
@@ -41,7 +56,7 @@ class FollowingListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activityLogger(this.javaClass.name, "onViewCreated")
-        initRecyclerView()
+        handleGetRequest()
     }
 
     override fun onPause() {
