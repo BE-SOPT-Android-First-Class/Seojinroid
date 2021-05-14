@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleGetRequest() {
         val call: Call<List<GithubRepositoryInfo>> =
-            RetrofitServiceCreator.githubService.getRepositories()
+            RetrofitServiceCreator.githubService.getRepositories("Seojinseojin")
         call.enqueue(object : Callback<List<GithubRepositoryInfo>> {
             override fun onResponse(
                 call: Call<List<GithubRepositoryInfo>>,
@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
                 Log.d("로그", t.toString())
             }
         })
-        val call2: Call<GithubUserInfo> = RetrofitServiceCreator.githubService.getUserInfo()
+        val call2: Call<GithubUserInfo> = RetrofitServiceCreator.githubService.getUserInfo("Seojinseojin")
         call2.enqueue(object : Callback<GithubUserInfo> {
             override fun onResponse(
                 call: Call<GithubUserInfo>,

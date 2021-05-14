@@ -26,7 +26,7 @@ class FollowingListFragment : Fragment() {
     }
 
     private fun handleGetRequest() {
-        val call: Call<List<GithubUserInfo>> = RetrofitServiceCreator.githubService.getFollowerInfo()
+        val call: Call<List<GithubUserInfo>> = RetrofitServiceCreator.githubService.getFollowerInfo("Seojinseojin")
         call.enqueue(object : Callback<List<GithubUserInfo>> {
             override fun onResponse(
                 call: Call<List<GithubUserInfo>>,
