@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.R
 import org.sopt.soptseminar_week1.api.RequestSignUp
 import org.sopt.soptseminar_week1.api.ResponseSignUp
-import org.sopt.soptseminar_week1.api.UserServiceCreator
+import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.databinding.ActivitySignUpBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
@@ -84,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
         )
 
         val call: Call<ResponseSignUp> =
-            UserServiceCreator.userService.postSignUp(requestSignUpData)
+            RetrofitServiceCreator.userService.postSignUp(requestSignUpData)
         call.enqueue(object : Callback<ResponseSignUp> {
             override fun onResponse(
                 call: Call<ResponseSignUp>,

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
-import org.sopt.soptseminar_week1.api.GithubServiceCreator
+import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.GithubRepositoryInfo
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.ActivityHomeBinding
@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleGetRequest() {
         val call: Call<List<GithubRepositoryInfo>> =
-            GithubServiceCreator.githubService.getRepositories()
+            RetrofitServiceCreator.githubService.getRepositories()
         call.enqueue(object : Callback<List<GithubRepositoryInfo>> {
             override fun onResponse(
                 call: Call<List<GithubRepositoryInfo>>,
@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
                 Log.d("로그", t.toString())
             }
         })
-        val call2: Call<GithubUserInfo> = GithubServiceCreator.githubService.getUserInfo()
+        val call2: Call<GithubUserInfo> = RetrofitServiceCreator.githubService.getUserInfo()
         call2.enqueue(object : Callback<GithubUserInfo> {
             override fun onResponse(
                 call: Call<GithubUserInfo>,

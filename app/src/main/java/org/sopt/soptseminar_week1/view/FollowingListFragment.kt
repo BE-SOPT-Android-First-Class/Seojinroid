@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.sopt.soptseminar_week1.api.GithubServiceCreator
+import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
@@ -26,7 +26,7 @@ class FollowingListFragment : Fragment() {
     }
 
     private fun handleGetRequest() {
-        val call: Call<List<GithubUserInfo>> = GithubServiceCreator.githubService.getFollowerInfo()
+        val call: Call<List<GithubUserInfo>> = RetrofitServiceCreator.githubService.getFollowerInfo()
         call.enqueue(object : Callback<List<GithubUserInfo>> {
             override fun onResponse(
                 call: Call<List<GithubUserInfo>>,

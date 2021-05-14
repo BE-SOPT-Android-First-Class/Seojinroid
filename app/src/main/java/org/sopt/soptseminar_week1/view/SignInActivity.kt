@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.api.RequestSignIn
 import org.sopt.soptseminar_week1.api.ResponseSignIn
-import org.sopt.soptseminar_week1.api.UserServiceCreator
+import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
@@ -86,7 +86,7 @@ class SignInActivity : AppCompatActivity() {
             password = binding.editTextPw.text.toString()
         )
         val call: Call<ResponseSignIn> =
-            UserServiceCreator.userService.postSignIn(requestSignInData)
+            RetrofitServiceCreator.userService.postSignIn(requestSignInData)
 
         call.enqueue(object : Callback<ResponseSignIn> {
             override fun onResponse(
