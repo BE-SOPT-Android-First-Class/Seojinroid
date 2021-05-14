@@ -48,7 +48,8 @@ class HomeActivity : AppCompatActivity() {
                 Log.d("로그", t.toString())
             }
         })
-        val call2: Call<GithubUserInfo> = RetrofitServiceCreator.githubService.getUserInfo("Seojinseojin")
+        val call2: Call<GithubUserInfo> =
+            RetrofitServiceCreator.githubService.getUserInfo("Seojinseojin")
         call2.enqueue(object : Callback<GithubUserInfo> {
             override fun onResponse(
                 call: Call<GithubUserInfo>,
@@ -56,11 +57,11 @@ class HomeActivity : AppCompatActivity() {
             ) {
                 if (response.body() != null) {
                     binding.apply {
-                        textHomeProfileGithubId.text = response.body()!!.login
-                        textHomeProfileGithubComment.text = response.body()!!.bio
-                        textHomeProfileGithubUsername.text = response.body()!!.name
+                        textHomeProfileGithubId.text = requireNotNull(response.body()).login
+                        textHomeProfileGithubComment.text = requireNotNull(response.body()).bio
+                        textHomeProfileGithubUsername.text = requireNotNull(response.body()).name
                     }
-                    Glide.with(this@HomeActivity).load(response.body()!!.avatar_url)
+                    Glide.with(binding.imgHomeProfile.context).load(response.body()!!.avatar_url)
                         .into(binding.imgHomeProfile)
                 }
             }

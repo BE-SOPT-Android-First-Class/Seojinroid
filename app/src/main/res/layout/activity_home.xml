@@ -11,12 +11,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        android:paddingBottom="20dp">
+        app:layout_constraintVertical_bias="0.05">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_home_profile"
@@ -31,12 +31,12 @@
                 android:id="@+id/img_home_profile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/img_github"
                 android:contentDescription="@string/user_profile"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/img_github" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -44,32 +44,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="@string/user_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_home_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/cv_home_profile"
+            tools:text="@string/user_name" />
 
         <TextView
             android:id="@+id/text_home_profile_github_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_nickname"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_home_profile_github_id" />
+            app:layout_constraintTop_toBottomOf="@+id/text_home_profile_github_id"
+            tools:text="@string/user_nickname" />
 
         <TextView
             android:id="@+id/text_home_profile_github_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_bio"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_home_profile_github_username" />
+            app:layout_constraintTop_toBottomOf="@+id/text_home_profile_github_username"
+            tools:text="@string/user_bio" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

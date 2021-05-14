@@ -1,6 +1,5 @@
 package org.sopt.soptseminar_week1.view
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +14,9 @@ class FollowingListAdapter(followings: List<GithubUserInfo>) :
 
     class FollowingUserViewHolder(private val binding: ItemFollowingListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(followingListUserInfo: GithubUserInfo, context: Context) {
+        fun onBind(followingListUserInfo: GithubUserInfo) {
             binding.textFollowingListProfile.text = followingListUserInfo.login
-            Glide.with(context).load(followingListUserInfo.avatar_url)
+            Glide.with(binding.imgFollowingListProfile.context).load(followingListUserInfo.avatar_url)
                 .into(binding.imgFollowingListProfile)
         }
     }
@@ -31,7 +30,7 @@ class FollowingListAdapter(followings: List<GithubUserInfo>) :
     override fun getItemCount(): Int = userList.size
 
     override fun onBindViewHolder(holder: FollowingUserViewHolder, position: Int) {
-        holder.onBind(userList[position], holder.itemView.context)
+        holder.onBind(userList[position])
     }
 
 }

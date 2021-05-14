@@ -33,7 +33,7 @@ class FollowingListFragment : Fragment() {
                 response: Response<List<GithubUserInfo>>
             ) {
                 if (response.body() !== null) {
-                    initRecyclerView(response.body()!!)
+                    initRecyclerView(requireNotNull(response.body()))
                 }
             }
 
