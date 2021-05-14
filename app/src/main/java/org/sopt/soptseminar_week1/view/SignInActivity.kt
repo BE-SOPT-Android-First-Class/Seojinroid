@@ -4,15 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.api.RequestSignIn
-import org.sopt.soptseminar_week1.api.RequestSignUp
 import org.sopt.soptseminar_week1.api.ResponseSignIn
 import org.sopt.soptseminar_week1.api.UserServiceCreator
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
+import org.sopt.soptseminar_week1.utils.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -68,25 +67,17 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun handleEmptyInputs() {
-        Toast.makeText(
-            this@SignInActivity,
-            "아이디/비밀번호를 확인해주세요!",
-            Toast.LENGTH_SHORT
-        ).show()
+        toast("아이디/비밀번호를 확인해주세요!")
     }
 
     private fun handleSignInSuccess() {
-        Toast.makeText(
-            this@SignInActivity,
-            "환영합니다",
-            Toast.LENGTH_SHORT
-        ).show()
+        toast("환영합니다")
         val intent = Intent(this@SignInActivity, HomeActivity::class.java)
         homeActivityLauncher.launch(intent)
     }
 
     private fun handleSignInFailure() {
-        Toast.makeText(this@SignInActivity, "다시 시도해주세요", Toast.LENGTH_SHORT).show()
+        toast("다시 시도해주세요")
     }
 
     private fun handleSignInRequest() {

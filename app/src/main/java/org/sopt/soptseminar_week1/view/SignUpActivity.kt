@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.R
 import org.sopt.soptseminar_week1.api.RequestSignUp
@@ -13,6 +12,7 @@ import org.sopt.soptseminar_week1.api.UserServiceCreator
 import org.sopt.soptseminar_week1.databinding.ActivitySignUpBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
+import org.sopt.soptseminar_week1.utils.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,13 +63,13 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun handleSignUpSuccess() {
-        Toast.makeText(this@SignUpActivity, "회원가입을 축하합니다! 로그인해주세요", Toast.LENGTH_SHORT).show()
+        toast("회원가입을 축하합니다! 로그인해주세요")
         val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
         loginActivityLauncher.launch(intent)
     }
 
     private fun handleSignUpFailure() {
-        Toast.makeText(this@SignUpActivity, "다시 시도해 주세요~!", Toast.LENGTH_SHORT).show()
+        toast("다시 시도해 주세요~!")
     }
 
     private fun handleSignUpRequest() {
@@ -111,7 +111,7 @@ class SignUpActivity : AppCompatActivity() {
             val userPw = binding.editTextPw.text
             val userPhone = binding.editTextPhone.text
             if (!isAllEditTextFilled(listOf(userName, userId, userPw, userPhone))) {
-                Toast.makeText(this@SignUpActivity, "빈 칸이 있는지 확인해주세요", Toast.LENGTH_SHORT).show()
+                toast("빈 칸이 있는지 확인해주세요")
             } else {
                 handleSignUpRequest()
             }
