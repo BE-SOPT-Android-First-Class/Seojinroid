@@ -11,12 +11,8 @@ class RepositoryListAdapter(private val repositoryList: List<GithubRepositoryInf
 
     class RepositoryListViewHolder(private val binding: ItemRepositoryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(repositoryListInfo: GithubRepositoryInfo) {
-            binding.apply {
-                textName.text = repositoryListInfo.full_name
-                textDesc.text = repositoryListInfo.description
-                textLang.text = repositoryListInfo.language
-            }
+        fun onBind(repositoryInfo: GithubRepositoryInfo) {
+            binding.repository = repositoryInfo
         }
     }
 
