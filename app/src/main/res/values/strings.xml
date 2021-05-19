@@ -20,4 +20,12 @@
     <string name="btn_signup">Sign Up</string>
     <string name="btn_go_following_list">MORE</string>
     <string name="desc_following_list_profile">following list profile</string>
+    <string name="signup_sex">성별</string>
+    <string name="signup_sex_male">Male</string>
+    <string name="signul_sex_female">Female</string>
+    <string name="signup_phone">전화번호</string>
+    <string name="signup_phone_hint">전화번호를 입력해주세요</string>
+    <string name="signup_birth">생년월일</string>
+    <string name="signup_text">회원가입</string>
+    <string name="following_list">팔로잉 목록</string>
 </resources>

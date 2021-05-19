@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:paddingHorizontal="5dp"
-            android:text="@{user.name}"
+            android:text="@{user.login}"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

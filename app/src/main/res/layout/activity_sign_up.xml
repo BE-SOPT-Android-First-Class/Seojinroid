@@ -115,7 +115,7 @@
                 android:id="@+id/text_sex"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="성별"
+                android:text="@string/signup_sex"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -133,14 +133,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:checked="false"
-                    android:text="Male" />
+                    android:text="@string/signup_sex_male" />
 
                 <RadioButton
                     android:id="@+id/radio_sex_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="Female" />
+                    android:text="@string/signul_sex_female" />
             </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -155,7 +155,7 @@
                 android:id="@+id/text_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전화번호"
+                android:text="@string/signup_phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="true"
                 android:background="@drawable/input_selector"
-                android:hint="전화번호를 입력해주세요"
+                android:hint="@string/signup_phone_hint"
                 android:inputType="phone"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="13dp"
@@ -185,7 +185,7 @@
                 android:id="@+id/text_birth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="생년월일"
+                android:text="@string/signup_birth"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -220,7 +220,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
-            android:text="회원가입"
+            android:text="@string/signup_text"
             android:textColor="@color/black"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
