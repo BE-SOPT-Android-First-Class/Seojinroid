@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import org.sopt.soptseminar_week1.api.RequestSignIn
-import org.sopt.soptseminar_week1.api.ResponseSignIn
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
+import org.sopt.soptseminar_week1.data.RequestSignIn
+import org.sopt.soptseminar_week1.data.ResponseSignIn
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 import org.sopt.soptseminar_week1.utils.isAllEditTextFilled

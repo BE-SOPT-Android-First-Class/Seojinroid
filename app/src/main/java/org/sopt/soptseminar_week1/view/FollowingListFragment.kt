@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
@@ -20,13 +21,12 @@ class FollowingListFragment : Fragment() {
 
     private fun initRecyclerView(followings: List<GithubUserInfo>) {
         val followingListAdapter = FollowingListAdapter(followings)
-        binding.apply {
-            recyclerviewFollowingList.adapter = followingListAdapter
-        }
+        binding.recyclerviewFollowingList.adapter = followingListAdapter
     }
 
     private fun handleGetRequest() {
-        val call: Call<List<GithubUserInfo>> = RetrofitServiceCreator.githubService.getFollowerInfo("Seojinseojin")
+        val call: Call<List<GithubUserInfo>> =
+            RetrofitServiceCreator.githubService.getFollowerInfo("Seojinseojin")
         call.enqueue(object : Callback<List<GithubUserInfo>> {
             override fun onResponse(
                 call: Call<List<GithubUserInfo>>,
