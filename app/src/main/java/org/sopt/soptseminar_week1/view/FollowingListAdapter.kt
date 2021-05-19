@@ -15,7 +15,7 @@ class FollowingListAdapter(followings: List<GithubUserInfo>) :
     class FollowingUserViewHolder(private val binding: ItemFollowingListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(followingListUserInfo: GithubUserInfo) {
-            binding.textFollowingListProfile.text = followingListUserInfo.login
+            binding.user = followingListUserInfo
             Glide.with(binding.imgFollowingListProfile.context).load(followingListUserInfo.avatar_url)
                 .into(binding.imgFollowingListProfile)
         }
