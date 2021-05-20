@@ -13,6 +13,12 @@
 ❌|2-2-3 안청년 탈출 | RecyclerView Item 기능 구현
 ❌|2-3 안드 고수를 향해 | 객체지향, notifyDataSetChanged 적용
 ✅| 3-선택 | 디자인 적용
+✅| 4-1 안린이 탈출 | 로그인, 회원가입 통신 구현
+✅| 4-2 안청년 탈출 | 깃허브 유저 정보, 팔로워, 레포지토리 정보 통신 구현
+❌| 4-3 안드 고수를 향해 | 싱글톤 스레딩
+
+### 5/16까지 진행 상황
+[![Video Label](https://img.youtube.com/vi/HsK0OBVsJN8/0.jpg)](https://youtu.be/HsK0OBVsJN8)
 
 ## Week 1 : LifeCycle & ConstraintLayout & ViewBinding
 
@@ -72,3 +78,112 @@ item | 각각 뷰 객체들의 형태를 xml로 나타냄
 ViewHolder | 지금 화면에 보여지는 뷰 객체들을 홀딩하고 있는 객체
 ViewAdapter | 리스트를 리사이클러 뷰에 바인딩 시켜주는 객체
 LayoutManager | 리사이클러 뷰의 형태를 잡아주는 멋진 친구
+
+
+## Week 4 : Retrofit
+
+### 1. Cherish Signup, Signin API
+***- Sign In API***
+``` kotlin
+private fun handleSignInSuccess() {  
+    toast("환영합니다")  
+    val intent = Intent(this@SignInActivity, HomeActivity::class.java)  
+    homeActivityLauncher.launch(intent)  
+}  
+  
+private fun handleSignInFailure() {  
+    toast("다시 시도해주세요")  
+}  
+  
+private fun handleSignInRequest() {  
+    val requestSignInData = RequestSignIn(  
+        email = binding.editTextId.text.toString(),  
+  password = binding.editTextPw.text.toString()  
+    )  
+    val call: Call<ResponseSignIn> =  
+        RetrofitServiceCreator.userService.postSignIn(requestSignInData)  
+  
+    call.enqueue(object : Callback<ResponseSignIn> {  
+        override fun onResponse(  
+            call: Call<ResponseSignIn>,  
+  response: Response<ResponseSignIn>  
+        ) {  
+            Log.d("로그", "${response}, ${response.code()}")  
+            when (response.code()) {  
+                200 -> handleSignInSuccess()  
+                else -> handleSignInFailure()  
+            }  
+        }  
+  
+        override fun onFailure(call: Call<ResponseSignIn>, t: Throwable) {  
+            Log.d("로그", t.toString())  
+            handleSignInFailure()  
+        }  
+  
+    })  
+  
+}
+```
+***- Sign Up API***
+``` kotlin
+private fun handleSignUpSuccess() {  
+    toast("회원가입을 축하합니다! 로그인해주세요")  
+    val intent = Intent(this@SignUpActivity, SignInActivity::class.java)  
+    loginActivityLauncher.launch(intent)  
+}  
+  
+private fun handleSignUpFailure() {  
+    toast("다시 시도해 주세요~!")  
+}  
+  
+private fun handleSignUpRequest() {  
+  
+    val requestSignUpData: RequestSignUp = RequestSignUp(  
+        email = binding.editTextId.text.toString(),  
+  password = binding.editTextPw.text.toString(),  
+  nickname = binding.editTextName.text.toString(),  
+  sex = if (binding.radioSex.checkedRadioButtonId == R.id.radio_sex_male) 0 else 1,  
+  phone = binding.editTextPhone.text.toString(),  
+  birth = "${binding.datepickerBirth.year}-${binding.datepickerBirth.month}-${binding.datepickerBirth.dayOfMonth}"  
+  )  
+  
+    val call: Call<ResponseSignUp> =  
+        RetrofitServiceCreator.userService.postSignUp(requestSignUpData)  
+    call.enqueue(object : Callback<ResponseSignUp> {  
+        override fun onResponse(  
+            call: Call<ResponseSignUp>,  
+  response: Response<ResponseSignUp>  
+        ) {  
+            Log.d("로그", "${response}, ${response.code()}")  
+            when (response.code()) {  
+                200 -> handleSignUpSuccess()  
+                else -> handleSignUpFailure()  
+            }  
+        }  
+  
+        override fun onFailure(call: Call<ResponseSignUp>, t: Throwable) {  
+            Log.d("로그", t.toString())  
+            handleSignUpFailure()  
+        }  
+    })  
+}
+```
+
+
+### 2. Github API
+* 유저 정보 API
+* 유저 팔로잉 목록 API
+* 유저 레포지토리 목록 API
+
+<div align="center">
+	<img src="https://user-images.githubusercontent.com/48249505/118401232-dab0b080-b69f-11eb-9193-b93c9a78b936.png" width="300">
+	<img src="https://user-images.githubusercontent.com/48249505/118401248-e8663600-b69f-11eb-81b3-b2e0e6682dc5.png" width="300">
+</div>
+
+### 과제를 통해 배운 점
+옛날에는 비효율적으로 뚝딱거리며 코드를 짰었습니다. . 
+변수 이름 대충 짓고, 다 `onCreateActivity()`에다가 때려박고..
+구글링 해서 아무 코드나 치고, 구현되기만 하면 야호~ 하면서 잠 자러 갔습니다..
+하지만 훌륭한 세션과 코드리뷰를 통해! 특히 현우님께서 오목조목 잘 짚어주시고 더 나은 공부 방향을 알려주어서 정말 감사했습니다!
+다음주엔 리사이클러뷰에 데이터바인딩 적용해서 마무리하려고요!
+조원들의 코드를 보면서도 많이 배웠어요🤩
