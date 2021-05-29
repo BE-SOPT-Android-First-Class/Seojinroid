@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.RequestSignIn
 import org.sopt.soptseminar_week1.data.ResponseSignIn
+import org.sopt.soptseminar_week1.data.UserAuthStorage
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
@@ -33,6 +34,7 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        searchUserAuthStorage()
         initButtonClickEvent()
     }
 
@@ -66,12 +68,28 @@ class SignInActivity : AppCompatActivity() {
         activityLogger(this.localClassName, "onRestart")
     }
 
+    private fun isUserDataSaved() =
+        UserAuthStorage.getUserId(this).isNotEmpty() && UserAuthStorage.getUserPw(this).isNotEmpty()
+
+    private fun searchUserAuthStorage() {
+        if (isUserDataSaved()) {
+            handleSignInRequest(
+                email = UserAuthStorage.getUserId(this@SignInActivity),
+                password = UserAuthStorage.getUserPw(this@SignInActivity)
+            )
+        }
+    }
+
     private fun handleEmptyInputs() {
         toast("아이디/비밀번호를 확인해주세요!")
     }
 
     private fun handleSignInSuccess() {
         toast("환영합니다")
+        if (isAllEditTextFilled(listOf(binding.editTextId.text, binding.editTextPw.text))) {
+            UserAuthStorage.saveUserId(this@SignInActivity, binding.editTextId.text.toString())
+            UserAuthStorage.saveUserPw(this@SignInActivity, binding.editTextPw.text.toString())
+        }
         val intent = Intent(this@SignInActivity, HomeActivity::class.java)
         homeActivityLauncher.launch(intent)
     }
@@ -80,10 +98,10 @@ class SignInActivity : AppCompatActivity() {
         toast("다시 시도해주세요")
     }
 
-    private fun handleSignInRequest() {
+    private fun handleSignInRequest(email: String, password: String) {
         val requestSignInData = RequestSignIn(
-            email = binding.editTextId.text.toString(),
-            password = binding.editTextPw.text.toString()
+            email = email,
+            password = password
         )
         val call: Call<ResponseSignIn> =
             RetrofitServiceCreator.userService.postSignIn(requestSignInData)
@@ -114,7 +132,10 @@ class SignInActivity : AppCompatActivity() {
             if (!isAllEditTextFilled(listOf(binding.editTextId.text, binding.editTextPw.text))) {
                 handleEmptyInputs()
             } else {
-                handleSignInRequest()
+                handleSignInRequest(
+                    email = binding.editTextId.text.toString(),
+                    password = binding.editTextPw.text.toString()
+                )
             }
         }
         binding.signupButton.setOnClickListener {
