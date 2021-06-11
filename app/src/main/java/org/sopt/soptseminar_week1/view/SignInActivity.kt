@@ -73,9 +73,12 @@ class SignInActivity : AppCompatActivity() {
 
     private fun searchUserAuthStorage() {
         if (isUserDataSaved()) {
-            handleSignInRequest(
-                email = UserAuthStorage.getUserId(this@SignInActivity),
-                password = UserAuthStorage.getUserPw(this@SignInActivity)
+            AutoSignInDialogFragment(
+                UserAuthStorage.getUserId(this@SignInActivity),
+                UserAuthStorage.getUserPw(this@SignInActivity)
+            ).show(
+                supportFragmentManager,
+                "Dialog"
             )
         }
     }
@@ -98,7 +101,7 @@ class SignInActivity : AppCompatActivity() {
         toast("다시 시도해주세요")
     }
 
-    private fun handleSignInRequest(email: String, password: String) {
+    fun handleSignInRequest(email: String, password: String) {
         val requestSignInData = RequestSignIn(
             email = email,
             password = password
