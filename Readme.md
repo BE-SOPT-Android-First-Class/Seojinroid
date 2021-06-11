@@ -16,6 +16,9 @@
 ✅| 4-1 안린이 탈출 | 로그인, 회원가입 통신 구현
 ✅| 4-2 안청년 탈출 | 깃허브 유저 정보, 팔로워, 레포지토리 정보 통신 구현
 ❌| 4-3 안드 고수를 향해 | 싱글톤 스레딩
+✅| 7-1 안린이 탈출 | Shared Preference와 Activity
+✅| 7-2 안청년 탈출 | 확장 함수 구현
+
 
 ### 5/16까지 진행 상황
 [![Video Label](https://img.youtube.com/vi/HsK0OBVsJN8/0.jpg)](https://youtu.be/HsK0OBVsJN8)
@@ -187,3 +190,122 @@ private fun handleSignUpRequest() {
 하지만 훌륭한 세션과 코드리뷰를 통해! 특히 현우님께서 오목조목 잘 짚어주시고 더 나은 공부 방향을 알려주어서 정말 감사했습니다!
 다음주엔 리사이클러뷰에 데이터바인딩 적용해서 마무리하려고요!
 조원들의 코드를 보면서도 많이 배웠어요🤩
+
+## Week 7 : Shared Preference
+
+<div align="center">
+	<img width="300" src="https://user-images.githubusercontent.com/48249505/121674214-b902e780-caec-11eb-9650-5958fc1a83f2.gif">
+</div>
+
+### Shared Preference
+1. SignInActivity에서 SharedPreference에 접근하여 이미 아이디, 비밀번호 정보가 있는지 확인합니다.
+2. 있으면 Dialog를 호출합니다. Dialog에서는 저장된 아이디와 해당 유저 사진을 보여주며 계속 로그인 할건지 물어봅니다. YES를 누르면 로그인하고 HomeActivity로 이동합니다.
+3. NO를 누르거나, SharedPreference에 값이 없을 경우 SignInActivity에서 값을 입력하여 로그인을 진행합니다. 로그인에 성공하면 SharedPreference 값이 갱신됩니다.
+
+**Activity에서 처리 - SignInActivity**
+```kotlin
+private fun isUserDataSaved() =
+	UserAuthStorage.getUserId(this).isNotEmpty() && UserAuthStorage.getUserPw(this).isNotEmpty()
+private fun searchUserAuthStorage() {
+	if (isUserDataSaved()) {
+		AutoSignInDialogFragment(
+			UserAuthStorage.getUserId(this@SignInActivity),
+			UserAuthStorage.getUserPw(this@SignInActivity)
+		).show(supportFragmentManager,"Dialog")
+	}
+}
+
+private fun handleSignInSuccess() {
+	toast("환영합니다")
+	if (isAllEditTextFilled(listOf(binding.editTextId.text, binding.editTextPw.text))) {
+		UserAuthStorage.saveUserId(this@SignInActivity, binding.editTextId.text.toString())
+		UserAuthStorage.saveUserPw(this@SignInActivity, binding.editTextPw.text.toString())
+	}
+	val intent = Intent(this@SignInActivity, HomeActivity::class.java)
+	homeActivityLauncher.launch(intent)
+}
+```
+**Activity에서 처리 - AutoSignInDialogFragment**
+```kotlin
+class AutoSignInDialogFragment(private val userId: String, private val userPw: String) : DialogFragment() {
+	private lateinit var binding: FragmentAutoSignInDialogBinding
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		binding = FragmentAutoSignInDialogBinding.inflate(LayoutInflater.from(context))
+		initView()
+		return AlertDialog.Builder(requireActivity()).setView(binding.root).create()
+	}
+	private fun initView() {
+		binding.textAutoSigninId.text = userId
+		val selectorSentence = "${userId}(으)로\n로그인하시겠습니까?"
+		binding.textAutoSigninSelector.text = selectorSentence
+		Glide.with(this).load("https://github.com/${userId}.png").into(binding.imgAutoSigninProfile)
+		binding.signupNoButton.setOnClickListener { dismiss() }
+		binding.signupButton.setOnClickListener {
+			(activity as SignInActivity).handleSignInRequest(email = userId,password = userPw)
+		}
+	}
+}
+```
+
+**Shared Preference 처리**
+```kotlin
+package org.sopt.soptseminar_week1.data
+
+import android.content.Context
+
+object UserAuthStorage {
+	private const val STORAGE_KEY = "user_auth"
+	private const val USER_ID = "id"
+	private const val USER_PW = "pw"
+	private fun getSharedPreferences(context: Context): android.content.SharedPreferences {
+		return context.getSharedPreferences("${context.packageName}.$STORAGE_KEY",Context.MODE_PRIVATE)
+	}
+	
+	fun saveUserId(context: Context, id: String) {
+		val sharedPreferences = getSharedPreferences(context)
+		sharedPreferences.edit().putString(USER_ID, id).apply()
+	}
+	
+	fun saveUserPw(context: Context, pw: String) {
+		val sharedPreferences = getSharedPreferences(context)
+		sharedPreferences.edit().putString(USER_PW, pw).apply()
+	}
+
+	fun getUserId(context: Context): String {
+		val sharedPreferences = getSharedPreferences(context)
+		return sharedPreferences.getString(USER_ID, "") ?: ""
+	}
+
+	fun getUserPw(context: Context): String {
+		val sharedPreferences = getSharedPreferences(context)
+		return sharedPreferences.getString(USER_PW, "") ?: ""
+	}
+}
+```
+
+### Extension과 Activity에서 처리한 방법
+**Util 함수**
+```kotlin
+package org.sopt.soptseminar_week1.utils
+
+import android.content.Context
+import android.widget.Toast
+
+fun Context.toast(message : String) {
+	Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+```
+
+**Activity에서 사용**
+```kotlin
+package org.sopt.soptseminar_week1.view
+
+import org.sopt.soptseminar_week1.utils.toast
+
+private fun handleEmptyInputs() {
+	toast("아이디/비밀번호를 확인해주세요!")
+}
+```
+
+### 과제를 통해 배운 점
+처음에 코드를 짰을 땐 로그인 액티비티가 보이고 나서 입력칸이 비었는데도 자동완성 로그인이 되었기에 사용자 입장에서 다소 띠용한 상황이 생겼습니다. 사용자 관점을 고려해서 어떻게 사용자가 어플리케이션의 흐름 중 알아야 할 부분을 알기 쉽게 알도록 도울 수 있을지 깊게 생각할 수 있었습니다. 웹의 로컬 스토리지와 비슷하면서도 다른.. 셰어드 프리퍼런스.. 잘 활용해 보도록 하겠습니다!
