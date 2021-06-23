@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
+import org.sopt.soptseminar_week1.base.BaseActivity
 import org.sopt.soptseminar_week1.data.RequestSignIn
 import org.sopt.soptseminar_week1.data.ResponseSignIn
 import org.sopt.soptseminar_week1.data.UserAuthStorage
@@ -17,8 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignInActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class SignInActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
     private var signUpActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -32,40 +32,8 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         searchUserAuthStorage()
         initButtonClickEvent()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        activityLogger(this.localClassName, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activityLogger(this.localClassName, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        activityLogger(this.localClassName, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        activityLogger(this.localClassName, "onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        activityLogger(this.localClassName, "onDestroy")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        activityLogger(this.localClassName, "onRestart")
     }
 
     private fun isUserDataSaved() =
