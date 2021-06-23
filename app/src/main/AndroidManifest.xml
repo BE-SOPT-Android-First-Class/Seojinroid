@@ -11,16 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoptSeminar_week1">
-        <activity android:name=".view.HomeActivity" />
-        <activity android:name=".view.SignUpActivity" />
-        <activity android:name=".view.UserInfoActivity" />
-        <activity android:name=".view.SignInActivity">
+        <activity android:name=".view.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.SignUpActivity" />
+        <activity android:name=".view.UserInfoActivity" />
+        <activity android:name=".view.SignInActivity" />
     </application>
 
 </manifest>
