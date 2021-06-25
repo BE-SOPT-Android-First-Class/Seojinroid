@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptseminar_week1.R
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
+import org.sopt.soptseminar_week1.base.BaseActivity
 import org.sopt.soptseminar_week1.data.RequestSignUp
 import org.sopt.soptseminar_week1.data.ResponseSignUp
 import org.sopt.soptseminar_week1.databinding.ActivitySignUpBinding
@@ -17,8 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignUpActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignUpBinding
+class SignUpActivity : BaseActivity<ActivitySignUpBinding>({ ActivitySignUpBinding.inflate(it) }) {
     private var loginActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -27,39 +27,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         initButtonClickEvent()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        activityLogger(this.localClassName, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activityLogger(this.localClassName, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        activityLogger(this.localClassName, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        activityLogger(this.localClassName, "onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        activityLogger(this.localClassName, "onDestroy")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        activityLogger(this.localClassName, "onRestart")
     }
 
     private fun handleSignUpSuccess() {

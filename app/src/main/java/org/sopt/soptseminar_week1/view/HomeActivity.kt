@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
+import org.sopt.soptseminar_week1.base.BaseActivity
 import org.sopt.soptseminar_week1.data.GithubRepositoryInfo
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.ActivityHomeBinding
@@ -15,9 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHomeBinding
-
+class HomeActivity : BaseActivity<ActivityHomeBinding>({ActivityHomeBinding.inflate(it)}) {
     private var userInfoActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -81,39 +80,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         handleGetRequest()
         initLaunchUserInfoActivityButton()
     }
 
-    override fun onStart() {
-        super.onStart()
-        activityLogger(this.localClassName, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activityLogger(this.localClassName, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        activityLogger(this.localClassName, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        activityLogger(this.localClassName, "onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        activityLogger(this.localClassName, "onDestroy")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        activityLogger(this.localClassName, "onRestart")
-    }
 }
