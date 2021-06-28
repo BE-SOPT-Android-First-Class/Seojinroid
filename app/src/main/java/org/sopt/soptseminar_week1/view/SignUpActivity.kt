@@ -52,7 +52,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>({ ActivitySignUpBindi
         )
 
         val call: Call<ResponseSignUp> =
-            RetrofitServiceCreator.userService.postSignUp(requestSignUpData)
+            RetrofitServiceCreator.getUserService().postSignUp(requestSignUpData)
         call.enqueue(object : Callback<ResponseSignUp> {
             override fun onResponse(
                 call: Call<ResponseSignUp>,

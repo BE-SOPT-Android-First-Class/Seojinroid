@@ -5,13 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.base.BaseFragment
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import org.sopt.soptseminar_week1.utils.safeApiCall
+import org.sopt.soptseminar_week1.api.Result
 
 class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
 
@@ -21,23 +22,18 @@ class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
     }
 
     private fun handleGetRequest() {
-        val call: Call<List<GithubUserInfo>> =
-            RetrofitServiceCreator.githubService.getFolloweeInfo("Seojinseojin")
-        call.enqueue(object : Callback<List<GithubUserInfo>> {
-            override fun onResponse(
-                call: Call<List<GithubUserInfo>>,
-                response: Response<List<GithubUserInfo>>
-            ) {
-                if (response.body() !== null) {
-                    initRecyclerView(requireNotNull(response.body()))
+        lifecycleScope.launch {
+            when (val result = safeApiCall {
+                RetrofitServiceCreator.getGithubService().getFolloweeInfo("Seojinseojin")
+            }) {
+                is Result.Success -> {
+                    initRecyclerView(result.data)
+                }
+                is Result.Error -> {
+                    Log.d("태그", result.exception)
                 }
             }
-
-            override fun onFailure(call: Call<List<GithubUserInfo>>, t: Throwable) {
-                Log.d("로그", t.toString())
-            }
-
-        })
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

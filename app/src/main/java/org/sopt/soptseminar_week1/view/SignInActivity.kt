@@ -75,7 +75,7 @@ class SignInActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.i
             password = password
         )
         val call: Call<ResponseSignIn> =
-            RetrofitServiceCreator.userService.postSignIn(requestSignInData)
+            RetrofitServiceCreator.getUserService().postSignIn(requestSignInData)
 
         call.enqueue(object : Callback<ResponseSignIn> {
             override fun onResponse(
