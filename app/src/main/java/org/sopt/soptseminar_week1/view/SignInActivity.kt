@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import org.sopt.soptseminar_week1.R
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.base.BaseActivity
 import org.sopt.soptseminar_week1.data.RequestSignIn
@@ -18,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignInActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
+class SignInActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private var signUpActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {

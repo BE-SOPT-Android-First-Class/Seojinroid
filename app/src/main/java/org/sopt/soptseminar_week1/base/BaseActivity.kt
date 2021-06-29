@@ -1,22 +1,21 @@
 package org.sopt.soptseminar_week1.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import org.sopt.soptseminar_week1.utils.activityLogger
 
-abstract class BaseActivity<B : ViewBinding>(
-    val bindingFactory: (LayoutInflater) -> B
+abstract class BaseActivity<T : ViewDataBinding>(
+    @LayoutRes private val layoutResId: Int
 ) : AppCompatActivity() {
 
-    private var _binding: B? = null
-    val binding get() = _binding!!
+    protected lateinit var binding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = bindingFactory(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, layoutResId)
     }
 
     override fun onStart() {
@@ -42,7 +41,6 @@ abstract class BaseActivity<B : ViewBinding>(
     override fun onDestroy() {
         super.onDestroy()
         activityLogger(this.localClassName, "onDestroy")
-        _binding = null
     }
 
     override fun onRestart() {

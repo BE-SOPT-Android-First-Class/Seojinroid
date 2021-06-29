@@ -1,230 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".view.SignUpActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:context=".view.SignUpActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/nm_cl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@id/textView">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/name_txt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/edit_text_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:autofillHints="true"
-                android:background="@drawable/input_selector"
-                android:hint="@string/name_hint"
-                android:inputType="textPersonName"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_name" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/id_cl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/nm_cl">
-
-            <TextView
-                android:id="@+id/text_id"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/ghid_txt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/edit_text_id"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:autofillHints="true"
-                android:background="@drawable/input_selector"
-                android:hint="@string/ghid_hint"
-                android:inputType="text"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_id" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/pw_cl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/id_cl">
-
-            <TextView
-                android:id="@+id/text_pw"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/pw_txt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/edit_text_pw"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:autofillHints="true"
-                android:background="@drawable/input_selector"
-                android:hint="@string/pw_hint"
-                android:inputType="textPassword"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_pw" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/sex_cl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@id/pw_cl">
-
-            <TextView
-                android:id="@+id/text_sex"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/signup_sex"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RadioGroup
-                android:id="@+id/radio_sex"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nm_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/text_sex">
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/textView">
 
-                <RadioButton
-                    android:id="@+id/radio_sex_male"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:checked="false"
-                    android:text="@string/signup_sex_male" />
+                    android:text="@string/name_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <RadioButton
-                    android:id="@+id/radio_sex_female"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/edit_text_name"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="@string/signul_sex_female" />
-            </RadioGroup>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:autofillHints="true"
+                    android:background="@drawable/input_selector"
+                    android:hint="@string/name_hint"
+                    android:inputType="textPersonName"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/phone_cl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/sex_cl">
-
-            <TextView
-                android:id="@+id/text_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/signup_phone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/edit_text_phone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:autofillHints="true"
-                android:background="@drawable/input_selector"
-                android:hint="@string/signup_phone_hint"
-                android:inputType="phone"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_phone" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/birth_cl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/phone_cl">
-
-            <TextView
-                android:id="@+id/text_birth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/signup_birth"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <DatePicker
-                android:id="@+id/datepicker_birth"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/id_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner"
-                app:layout_constraintTop_toBottomOf="@id/text_birth" />
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/nm_cl">
+
+                <TextView
+                    android:id="@+id/text_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ghid_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_text_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="true"
+                    android:background="@drawable/input_selector"
+                    android:hint="@string/ghid_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_id" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/pw_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/id_cl">
+
+                <TextView
+                    android:id="@+id/text_pw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pw_txt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_text_pw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="true"
+                    android:background="@drawable/input_selector"
+                    android:hint="@string/pw_hint"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_pw" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sex_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/pw_cl">
+
+                <TextView
+                    android:id="@+id/text_sex"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_sex"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radio_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/text_sex">
+
+                    <RadioButton
+                        android:id="@+id/radio_sex_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:checked="false"
+                        android:text="@string/signup_sex_male" />
+
+                    <RadioButton
+                        android:id="@+id/radio_sex_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/signul_sex_female" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/phone_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/sex_cl">
+
+                <TextView
+                    android:id="@+id/text_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_phone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_text_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="true"
+                    android:background="@drawable/input_selector"
+                    android:hint="@string/signup_phone_hint"
+                    android:inputType="phone"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_phone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/birth_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/phone_cl">
+
+                <TextView
+                    android:id="@+id/text_birth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_birth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <DatePicker
+                    android:id="@+id/datepicker_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    app:layout_constraintTop_toBottomOf="@id/text_birth" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/signup_button"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#4260ff"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="@string/btn_signup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birth_cl" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/signup_text"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            android:id="@+id/signup_button"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="#4260ff"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:text="@string/btn_signup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/birth_cl" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/signup_text"
-            android:textColor="@color/black"
-            android:textSize="26sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</layout>

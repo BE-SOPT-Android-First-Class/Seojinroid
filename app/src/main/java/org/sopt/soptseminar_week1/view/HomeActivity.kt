@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.sopt.soptseminar_week1.R
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.base.BaseActivity
 import org.sopt.soptseminar_week1.data.GithubRepositoryInfo
@@ -17,7 +18,7 @@ import org.sopt.soptseminar_week1.utils.safeApiCall
 import org.sopt.soptseminar_week1.api.Result
 
 
-class HomeActivity : BaseActivity<ActivityHomeBinding>({ ActivityHomeBinding.inflate(it) }) {
+class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private var userInfoActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {

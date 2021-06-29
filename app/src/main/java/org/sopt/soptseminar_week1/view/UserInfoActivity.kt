@@ -11,7 +11,7 @@ import org.sopt.soptseminar_week1.base.BaseActivity
 import org.sopt.soptseminar_week1.databinding.ActivityUserInfoBinding
 
 class UserInfoActivity :
-    BaseActivity<ActivityUserInfoBinding>({ ActivityUserInfoBinding.inflate(it) }) {
+    BaseActivity<ActivityUserInfoBinding>(R.layout.activity_user_info) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tabLayout = binding.tabLayout
