@@ -9,23 +9,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.sopt.soptseminar_week1.api.Result
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
+import org.sopt.soptseminar_week1.data.GithubRepositoryInfo
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.utils.safeApiCall
 
-class UserInfoViewModel : ViewModel() {
-    private val _followees = MutableLiveData<List<GithubUserInfo>>()
-    val followees: LiveData<List<GithubUserInfo>> = _followees
+class HomeViewModel : ViewModel() {
+    private val _userProfile = MutableLiveData<GithubUserInfo>()
+    val userProfile: LiveData<GithubUserInfo> = _userProfile
 
-    private val _followers = MutableLiveData<List<GithubUserInfo>>()
-    val followers: LiveData<List<GithubUserInfo>> = _followers
+    private val _userRepositories = MutableLiveData<List<GithubRepositoryInfo>>()
+    val userRepositories: LiveData<List<GithubRepositoryInfo>> = _userRepositories
 
-    fun getFollowees(userName: String) {
+    fun getUserProfile(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getFolloweeInfo(userName)
+                RetrofitServiceCreator.getGithubService().getUserInfo(userName)
             }) {
                 is Result.Success -> {
-                    _followees.postValue(result.data)
+                    _userProfile.postValue(result.data)
                 }
                 is Result.Error -> {
                     Log.d("태그", result.exception)
@@ -34,13 +35,13 @@ class UserInfoViewModel : ViewModel() {
         }
     }
 
-    fun getFollowers(userName: String) {
+    fun getUserRepositories(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getFollowerInfo(userName)
+                RetrofitServiceCreator.getGithubService().getRepositories(userName)
             }) {
                 is Result.Success -> {
-                    _followers.postValue(result.data)
+                    _userRepositories.postValue(result.data)
                 }
                 is Result.Error -> {
                     Log.d("태그", result.exception)
@@ -48,5 +49,4 @@ class UserInfoViewModel : ViewModel() {
             }
         }
     }
-
 }

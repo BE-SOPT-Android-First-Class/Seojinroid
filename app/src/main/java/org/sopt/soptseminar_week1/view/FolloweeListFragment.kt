@@ -1,20 +1,21 @@
 package org.sopt.soptseminar_week1.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import kotlinx.coroutines.launch
-import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.base.BaseFragment
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
-import org.sopt.soptseminar_week1.utils.safeApiCall
-import org.sopt.soptseminar_week1.api.Result
+import org.sopt.soptseminar_week1.viewmodel.UserInfoViewModel
 
 class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
+
+    private val viewModel: UserInfoViewModel by activityViewModels()
 
     private fun initRecyclerView(followees: List<GithubUserInfo>) {
         val followeeListAdapter = FollowingListAdapter(followees)
@@ -22,23 +23,17 @@ class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
     }
 
     private fun handleGetRequest() {
-        lifecycleScope.launch {
-            when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getFolloweeInfo("Seojinseojin")
-            }) {
-                is Result.Success -> {
-                    initRecyclerView(result.data)
-                }
-                is Result.Error -> {
-                    Log.d("태그", result.exception)
-                }
-            }
+        viewModel.followers.observe(viewLifecycleOwner) {
+            initRecyclerView(it)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleGetRequest()
+        lifecycleScope.launch {
+            viewModel.getFollowers("Seojinseojin")
+        }
     }
 
     override fun getFragmentBinding(

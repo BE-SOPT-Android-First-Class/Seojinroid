@@ -1,7 +1,6 @@
 package org.sopt.soptseminar_week1.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,7 +11,6 @@ import org.sopt.soptseminar_week1.data.RequestSignIn
 import org.sopt.soptseminar_week1.data.ResponseSignIn
 import org.sopt.soptseminar_week1.data.UserAuthStorage
 import org.sopt.soptseminar_week1.databinding.ActivityMainBinding
-import org.sopt.soptseminar_week1.utils.activityLogger
 import org.sopt.soptseminar_week1.utils.isAllEditTextFilled
 import org.sopt.soptseminar_week1.utils.toast
 import retrofit2.Call
