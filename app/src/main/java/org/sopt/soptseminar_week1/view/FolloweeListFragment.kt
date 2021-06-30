@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
 import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
 import org.sopt.soptseminar_week1.base.BaseFragment
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
@@ -15,7 +15,7 @@ import org.sopt.soptseminar_week1.viewmodel.UserInfoViewModel
 
 class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
 
-    private val viewModel: UserInfoViewModel by activityViewModels()
+    private lateinit var viewModel: UserInfoViewModel
 
     private fun initRecyclerView(followees: List<GithubUserInfo>) {
         val followeeListAdapter = FollowingListAdapter(followees)
@@ -28,11 +28,13 @@ class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
         }
     }
 
+    @ExperimentalSerializationApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(UserInfoViewModel::class.java)
         handleGetRequest()
         lifecycleScope.launch {
-            viewModel.getFollowers("Seojinseojin")
+            viewModel.getFollowers(userName = "Seojinseojin")
         }
     }
 

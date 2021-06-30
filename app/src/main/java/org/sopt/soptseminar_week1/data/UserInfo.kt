@@ -1,39 +1,46 @@
 package org.sopt.soptseminar_week1.data
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class RequestSignIn(
-    @SerializedName("email") val email: String,
-    @SerializedName("password") val password: String
+    @SerialName("email") val email: String,
+    @SerialName("password") val password: String
 )
 
+@Serializable
 data class ResponseSignIn(
-    @SerializedName("success") val success: Boolean,
-    @SerializedName("message") val message: String,
-    @SerializedName("data") val data: ResponseSignInData
+    @SerialName("success") val success: Boolean,
+    @SerialName("message") val message: String,
+    @SerialName("data") val data: ResponseSignInData
 )
 
+@Serializable
 data class ResponseSignInData(
-    @SerializedName("UserId") val userId: String,
-    @SerializedName("user_nickname") val userNickname: String,
-    @SerializedName("token") val token: String
+    @SerialName("UserId") val userId: String,
+    @SerialName("user_nickname") val userNickname: String,
+    @SerialName("token") val token: String
 )
 
+@Serializable
 data class RequestSignUp(
-    @SerializedName("email") val email: String,
-    @SerializedName("password") val password: String,
-    @SerializedName("sex") val sex: Int,
-    @SerializedName("nickname") val nickname: String,
-    @SerializedName("phone") val phone: String,
-    @SerializedName("birth") val birth: String
+    @SerialName("email") val email: String,
+    @SerialName("password") val password: String,
+    @SerialName("sex") val sex: Int,
+    @SerialName("nickname") val nickname: String,
+    @SerialName("phone") val phone: String,
+    @SerialName("birth") val birth: String
 )
 
+@Serializable
 data class ResponseSignUp(
-    @SerializedName("success") val success: Boolean,
-    @SerializedName("message") val message: String,
-    @SerializedName("data") val data: ResponseSignUpData
+    @SerialName("success") val success: Boolean,
+    @SerialName("message") val message: String,
+    @SerialName("data") val data: ResponseSignUpData
 )
 
+@Serializable
 data class ResponseSignUpData(
-    @SerializedName("nickname") val nickname: String
+    @SerialName("nickname") val nickname: String
 )

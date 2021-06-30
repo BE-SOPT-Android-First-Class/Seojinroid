@@ -1,16 +1,18 @@
 package org.sopt.soptseminar_week1.data
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GithubRepositoryInfo(
-    @SerializedName("id") val id: Int,
-    @SerializedName("node_id") val node_id: String,
-    @SerializedName("name") val name: String,
-    @SerializedName("full_name") val full_name: String,
-    @SerializedName("private") val private: Boolean,
-    @SerializedName("owner") val owner: GithubUserInfo,
-    @SerializedName("description") val description: String,
-    @SerializedName("collaborators_url") val collaborators_url: String,
-    @SerializedName("watchers_count") val watchers_count: Int,
-    @SerializedName("language") val language: String
+    @SerialName("id") val id: Int,
+    @SerialName("node_id") val node_id: String,
+    @SerialName("name") val name: String = "no name",
+    @SerialName("full_name") val full_name: String?,
+    @SerialName("private") val private: Boolean,
+    @SerialName("owner") val owner: GithubUserInfo,
+    @SerialName("description") val description: String? = "",
+    @SerialName("collaborators_url") val collaborators_url: String,
+    @SerialName("watchers_count") val watchers_count: Int,
+    @SerialName("language") val language: String? = ""
 )

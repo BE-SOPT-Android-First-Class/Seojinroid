@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
 import org.sopt.soptseminar_week1.api.Result
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.GithubRepositoryInfo
@@ -20,10 +21,11 @@ class HomeViewModel : ViewModel() {
     private val _userRepositories = MutableLiveData<List<GithubRepositoryInfo>>()
     val userRepositories: LiveData<List<GithubRepositoryInfo>> = _userRepositories
 
+    @ExperimentalSerializationApi
     fun getUserProfile(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getUserInfo(userName)
+                RetrofitServiceCreator.getGithubService().getUserInfo(userName = userName)
             }) {
                 is Result.Success -> {
                     _userProfile.postValue(result.data)
@@ -35,10 +37,11 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    @ExperimentalSerializationApi
     fun getUserRepositories(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getRepositories(userName)
+                RetrofitServiceCreator.getGithubService().getRepositories(userName = userName)
             }) {
                 is Result.Success -> {
                     _userRepositories.postValue(result.data)

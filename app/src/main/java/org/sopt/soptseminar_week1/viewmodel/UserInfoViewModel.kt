@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
 import org.sopt.soptseminar_week1.api.Result
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.GithubUserInfo
@@ -19,10 +20,11 @@ class UserInfoViewModel : ViewModel() {
     private val _followers = MutableLiveData<List<GithubUserInfo>>()
     val followers: LiveData<List<GithubUserInfo>> = _followers
 
+    @ExperimentalSerializationApi
     fun getFollowees(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getFolloweeInfo(userName)
+                RetrofitServiceCreator.getGithubService().getFolloweeInfo(userName = userName)
             }) {
                 is Result.Success -> {
                     _followees.postValue(result.data)
@@ -34,10 +36,11 @@ class UserInfoViewModel : ViewModel() {
         }
     }
 
+    @ExperimentalSerializationApi
     fun getFollowers(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getFollowerInfo(userName)
+                RetrofitServiceCreator.getGithubService().getFollowerInfo(userName = userName)
             }) {
                 is Result.Success -> {
                     _followers.postValue(result.data)

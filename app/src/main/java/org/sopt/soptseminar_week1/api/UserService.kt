@@ -1,6 +1,5 @@
 package org.sopt.soptseminar_week1.api
 
-import com.google.gson.annotations.SerializedName
 import org.sopt.soptseminar_week1.data.RequestSignIn
 import org.sopt.soptseminar_week1.data.RequestSignUp
 import org.sopt.soptseminar_week1.data.ResponseSignIn
@@ -21,4 +20,3 @@ interface UserService {
         @Body body: RequestSignIn
     ): Call<ResponseSignIn>
 }
-
