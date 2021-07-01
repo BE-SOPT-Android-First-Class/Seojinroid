@@ -11,6 +11,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import org.sopt.soptseminar_week1.api.Result
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.GithubUserInfo
+import org.sopt.soptseminar_week1.repository.UserDataSourceImpl
 import org.sopt.soptseminar_week1.utils.safeApiCall
 
 class UserInfoViewModel : ViewModel() {
@@ -23,32 +24,24 @@ class UserInfoViewModel : ViewModel() {
     @ExperimentalSerializationApi
     fun getFollowees(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getFolloweeInfo(userName = userName)
-            }) {
-                is Result.Success -> {
-                    _followees.postValue(result.data)
-                }
-                is Result.Error -> {
-                    Log.d("태그", result.exception)
-                }
+            val result = runCatching {
+                UserDataSourceImpl().getFollowees(userName)
+            }.getOrElse {
+                throw it
             }
+            _followees.postValue(result)
         }
     }
 
     @ExperimentalSerializationApi
     fun getFollowers(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getFollowerInfo(userName = userName)
-            }) {
-                is Result.Success -> {
-                    _followers.postValue(result.data)
-                }
-                is Result.Error -> {
-                    Log.d("태그", result.exception)
-                }
+            val result = runCatching {
+                UserDataSourceImpl().getFollowers(userName)
+            }.getOrElse {
+                throw it
             }
+            _followers.postValue(result)
         }
     }
 

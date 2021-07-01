@@ -13,7 +13,7 @@ interface GithubService {
             value = "username",
             encoded = true
         ) userName: String
-    ): Response<List<GithubRepositoryInfo>>
+    ): List<GithubRepositoryInfo>
 
     @GET("users/{username}")
     suspend fun getUserInfo(
@@ -21,7 +21,7 @@ interface GithubService {
             value = "username",
             encoded = true
         ) userName: String
-    ): Response<GithubUserInfo>
+    ): GithubUserInfo
 
     @GET("users/{username}/followers")
     suspend fun getFollowerInfo(
@@ -29,7 +29,7 @@ interface GithubService {
             value = "username",
             encoded = true
         ) userName: String
-    ): Response<List<GithubUserInfo>>
+    ): List<GithubUserInfo>
 
     @GET("users/{username}/following")
     suspend fun getFolloweeInfo(
@@ -37,5 +37,5 @@ interface GithubService {
             value = "username",
             encoded = true
         ) userName: String
-    ): Response<List<GithubUserInfo>>
+    ): List<GithubUserInfo>
 }

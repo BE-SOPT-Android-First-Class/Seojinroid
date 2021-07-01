@@ -12,6 +12,8 @@ import org.sopt.soptseminar_week1.api.Result
 import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
 import org.sopt.soptseminar_week1.data.GithubRepositoryInfo
 import org.sopt.soptseminar_week1.data.GithubUserInfo
+import org.sopt.soptseminar_week1.repository.HomeDataSource
+import org.sopt.soptseminar_week1.repository.HomeDataSourceImpl
 import org.sopt.soptseminar_week1.utils.safeApiCall
 
 class HomeViewModel : ViewModel() {
@@ -23,33 +25,25 @@ class HomeViewModel : ViewModel() {
 
     @ExperimentalSerializationApi
     fun getUserProfile(userName: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getUserInfo(userName = userName)
-            }) {
-                is Result.Success -> {
-                    _userProfile.postValue(result.data)
-                }
-                is Result.Error -> {
-                    Log.d("태그", result.exception)
-                }
+        viewModelScope.launch {
+            val result = runCatching {
+                HomeDataSourceImpl().getUserInfo(userName)
+            }.getOrElse {
+                throw it
             }
+            _userProfile.postValue(result)
         }
     }
 
     @ExperimentalSerializationApi
     fun getUserRepositories(userName: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val result = safeApiCall {
-                RetrofitServiceCreator.getGithubService().getRepositories(userName = userName)
-            }) {
-                is Result.Success -> {
-                    _userRepositories.postValue(result.data)
-                }
-                is Result.Error -> {
-                    Log.d("태그", result.exception)
-                }
+        viewModelScope.launch {
+            val result = runCatching {
+                HomeDataSourceImpl().getRepositories(userName)
+            }.getOrElse {
+                throw it
             }
+            _userRepositories.postValue(result)
         }
     }
 }
