@@ -1,22 +1,24 @@
 package org.sopt.soptseminar_week1.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
+import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
+import org.sopt.soptseminar_week1.R
 import org.sopt.soptseminar_week1.base.BaseActivity
 import org.sopt.soptseminar_week1.data.GithubRepositoryInfo
-import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.ActivityHomeBinding
-import org.sopt.soptseminar_week1.utils.activityLogger
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import org.sopt.soptseminar_week1.viewmodel.HomeViewModel
 
-class HomeActivity : BaseActivity<ActivityHomeBinding>({ActivityHomeBinding.inflate(it)}) {
+
+class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
+    private lateinit var viewModel: HomeViewModel
+
     private var userInfoActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -31,45 +33,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>({ActivityHomeBinding.infl
     }
 
     private fun handleGetRequest() {
-        val call: Call<List<GithubRepositoryInfo>> =
-            RetrofitServiceCreator.githubService.getRepositories("Seojinseojin")
-        call.enqueue(object : Callback<List<GithubRepositoryInfo>> {
-            override fun onResponse(
-                call: Call<List<GithubRepositoryInfo>>,
-                response: Response<List<GithubRepositoryInfo>>
-            ) {
-                if (response.body() != null) {
-                    initRecyclerView(response.body()!!)
-                }
+        viewModel.userRepositories.observe(this) {
+            initRecyclerView(it)
+        }
+        viewModel.userProfile.observe(this) {
+            binding.apply {
+                textHomeProfileGithubId.text = it.login
+                textHomeProfileGithubComment.text = it.bio
+                textHomeProfileGithubUsername.text = it.name
             }
-
-            override fun onFailure(call: Call<List<GithubRepositoryInfo>>, t: Throwable) {
-                Log.d("로그", t.toString())
-            }
-        })
-        val call2: Call<GithubUserInfo> =
-            RetrofitServiceCreator.githubService.getUserInfo("Seojinseojin")
-        call2.enqueue(object : Callback<GithubUserInfo> {
-            override fun onResponse(
-                call: Call<GithubUserInfo>,
-                response: Response<GithubUserInfo>
-            ) {
-                if (response.body() != null) {
-                    binding.apply {
-                        textHomeProfileGithubId.text = requireNotNull(response.body()).login
-                        textHomeProfileGithubComment.text = requireNotNull(response.body()).bio
-                        textHomeProfileGithubUsername.text = requireNotNull(response.body()).name
-                    }
-                    Glide.with(binding.imgHomeProfile.context).load(response.body()!!.avatar_url)
-                        .into(binding.imgHomeProfile)
-                }
-            }
-
-            override fun onFailure(call: Call<GithubUserInfo>, t: Throwable) {
-                Log.d("로그", t.toString())
-            }
-
-        })
+            Glide.with(binding.imgHomeProfile.context).load(it.avatar_url)
+                .into(binding.imgHomeProfile)
+        }
     }
 
     private fun initRecyclerView(repositoryList: List<GithubRepositoryInfo>) {
@@ -78,10 +53,16 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>({ActivityHomeBinding.infl
         repositoryListAdapter.notifyDataSetChanged()
     }
 
+    @ExperimentalSerializationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         handleGetRequest()
         initLaunchUserInfoActivityButton()
+        lifecycleScope.launch {
+            viewModel.getUserProfile(userName = "Seojinseojin")
+            viewModel.getUserRepositories(userName = "Seojinseojin")
+        }
     }
 
 }

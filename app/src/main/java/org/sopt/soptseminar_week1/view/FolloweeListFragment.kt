@@ -1,19 +1,21 @@
 package org.sopt.soptseminar_week1.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.sopt.soptseminar_week1.api.RetrofitServiceCreator
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
 import org.sopt.soptseminar_week1.base.BaseFragment
 import org.sopt.soptseminar_week1.data.GithubUserInfo
 import org.sopt.soptseminar_week1.databinding.FragmentFollowingListBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import org.sopt.soptseminar_week1.viewmodel.UserInfoViewModel
 
 class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
+
+    private lateinit var viewModel: UserInfoViewModel
 
     private fun initRecyclerView(followees: List<GithubUserInfo>) {
         val followeeListAdapter = FollowingListAdapter(followees)
@@ -21,28 +23,19 @@ class FolloweeListFragment : BaseFragment<FragmentFollowingListBinding>() {
     }
 
     private fun handleGetRequest() {
-        val call: Call<List<GithubUserInfo>> =
-            RetrofitServiceCreator.githubService.getFolloweeInfo("Seojinseojin")
-        call.enqueue(object : Callback<List<GithubUserInfo>> {
-            override fun onResponse(
-                call: Call<List<GithubUserInfo>>,
-                response: Response<List<GithubUserInfo>>
-            ) {
-                if (response.body() !== null) {
-                    initRecyclerView(requireNotNull(response.body()))
-                }
-            }
-
-            override fun onFailure(call: Call<List<GithubUserInfo>>, t: Throwable) {
-                Log.d("로그", t.toString())
-            }
-
-        })
+        viewModel.followers.observe(viewLifecycleOwner) {
+            initRecyclerView(it)
+        }
     }
 
+    @ExperimentalSerializationApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(UserInfoViewModel::class.java)
         handleGetRequest()
+        lifecycleScope.launch {
+            viewModel.getFollowers(userName = "Seojinseojin")
+        }
     }
 
     override fun getFragmentBinding(
