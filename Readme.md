@@ -6,16 +6,16 @@
 |:--:|:--|:--|
 ✅| 1-1 안린이 탈출 | SignIn, SignUp, Home Activity 제작하기
 ✅| 1-2 안청년 탈출 | 변수 이름 바꾸기, Constraint Layout 마스터
-❌|1-3 안드 고수를 향해 | ViewBinding, 객체지향 적용, 아키텍쳐
+✅|1-3 안드 고수를 향해 | ViewBinding, 객체지향 적용, 아키텍쳐
 ✅| 2-1 안린이 탈출 | HomeActivity 추가
 ✅|2-2-1 안청년 탈출 | GridLayoutManager 사용
 ❌|2-2-2 안청년 탈출 | 이중 RecyclerView 만들기
 ❌|2-2-3 안청년 탈출 | RecyclerView Item 기능 구현
-❌|2-3 안드 고수를 향해 | 객체지향, notifyDataSetChanged 적용
+✅|2-3 안드 고수를 향해 | 객체지향, notifyDataSetChanged 적용
 ✅| 3-선택 | 디자인 적용
 ✅| 4-1 안린이 탈출 | 로그인, 회원가입 통신 구현
 ✅| 4-2 안청년 탈출 | 깃허브 유저 정보, 팔로워, 레포지토리 정보 통신 구현
-❌| 4-3 안드 고수를 향해 | 싱글톤 스레딩
+✅| 4-3 안드 고수를 향해 | 싱글톤 스레딩
 ✅| 7-1 안린이 탈출 | Shared Preference와 Activity
 ✅| 7-2 안청년 탈출 | 확장 함수 구현
 
